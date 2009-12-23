@@ -37,9 +37,6 @@ class Object:
     def draw(self, screen):
 	screen.blit(self.image, (self.pos_x, self.pos_y))
 
-class Weapon:
-    def __init__(self, weapon):
-	self.name = weapon
 
 class Player(Object):
     def __init__(self, image, speed, (x, y), weapon, clothes, rabbits):
@@ -48,6 +45,14 @@ class Player(Object):
 	self.clothes = clothes
 	self.rabbits = rabbits
 	self.spirit = 0
+
+    def input(self, keys):
+        self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
+	self.pos_y += (keys[K_DOWN] - keys[K_UP]) * self.speed
+
+class Weapon:
+    def __init__(self, weapon):
+	self.name = weapon
 
 
 def tutorial_main(screen):
@@ -59,7 +64,11 @@ def tutorial_main(screen):
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+	keys = pygame.key.get_pressed()
+	
+	player.input(keys)
 	player.draw(screen)
+	
         pygame.display.update()
 	
  
