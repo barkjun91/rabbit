@@ -29,13 +29,39 @@ def load_image(name, colorkey=None):
         image.set_colorkey(colorkey, RLEACCEL)
     return image
 
+class Object:
+    def __init__(self, image, speed, (x, y)):
+	self.image = load_image(image).convert_alpha()
+	self.speed = speed
+	self.pos_x, self.pos_y = (x, y)
+    def draw(self, screen):
+	screen.blit(self.image, (self.pos_x, self.pos_y))
+
+class Weapon:
+    def __init__(self, weapon):
+	self.name = weapon
+
+class Player(Object):
+    def __init__(self, image, speed, (x, y), weapon, clothes, rabbits):
+	Object.__init__(self, image, speed, (x, y))
+	self.weapon = weapon
+	self.clothes = clothes
+	self.rabbits = rabbits
+	self.spirit = 0
+
+
 def tutorial_main(screen):
     pygame.init()
+    player = Player("player.bmp", 2, (0,0), "test", "test", 0)
     while 1:
+	screen.fill((255,255,255))
 	for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+	player.draw(screen)
+        pygame.display.update()
+	
  
 if __name__ == '__main__':
     main()
