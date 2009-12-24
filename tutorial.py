@@ -6,15 +6,6 @@ from pygame.locals import *
 
 SCREEN_SIZE = (800, 600) # screen size set
 
-# define where to get the tile image form in the tiles source image
-tile_coords = {
-    'a': (0,0), # noraml_ground
-    'n': (64,0),
-    'b': (128,0),
-    '.': None,
-}
-
-TILE_SIZE = 64
 
 #load image. where? = main/data/tutorial/~
 def load_image(name, colorkey=None):
