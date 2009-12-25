@@ -28,11 +28,12 @@ def load_person(data):
     p_count = int(person.readline())
     try:
 	for i in range(0, p_count, 1): #c -> for(i = 0; i<1; i ++)
-	    print person.readline()
-	    x = person.readline()
-	    y = person.readline()
-	    hp = person.readline()
-	    PERSON_LIST.insert(i, Person("m_farmer.bmp", 2, (x,y),hp))
+	    name = str(person.readline())
+	    if name.startswith("m_farmer"):
+	        x = int(person.readline())
+	        y = int(person.readline())
+	        PERSON_LIST.insert(i, Person("m_farmer.bmp", 2, (x,y)))
+		PERSON_LIST[i].hp = 100
     except pygame.error, message:
 	print 'Cannot load Person Data'
 	raise SystemExit, message
@@ -45,13 +46,13 @@ class Object:
 	self.image = load_image(image).convert_alpha()
 	self.speed = speed
 	self.pos_x, self.pos_y = (x, y)
-    def draw(self, screen):
-	screen.blit(self.image, (self.pos_x, self.pos_y))
 
 class Person(Object):
-    def __init__(self, image, speed, (x,y), hp):
+    def __init__(self, image, speed, (x,y)):
 	Object.__init__(self, image, speed, (x,y))
-	self.hp = hp
+	self.hp = 1
+    def draw(self, screen, camera):
+	screen.blit(self.image, (self.pos_x-camera.px, self.pos_y))
 
 class Player(Object):
     def __init__(self, image, speed, (x, y), weapon, clothes, rabbits):
@@ -65,7 +66,8 @@ class Player(Object):
         self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
 	self.pos_y += (keys[K_DOWN] - keys[K_UP]) * self.speed
 
-
+    def draw(self, screen):
+	screen.blit(self.image, (self.pos_x, self.pos_y))
 
 
 
@@ -80,9 +82,7 @@ def tutorial_main(screen):
     player = Player("player.bmp", 2, (220,490), "test", "test", 0)
     maps = map.Map("map.txt", "tiles.png")
     camera = map.Camera(screen)
-    count = load_person("person.txt")
-
-    print PERSON_LIST[0].hp
+    p_count = load_person("person.txt")
 
     while 1:
 	screen.fill((255,255,255))
@@ -95,6 +95,8 @@ def tutorial_main(screen):
 	maps.move(player, camera, keys)
 
 	maps.draw(screen, viewpos, camera)
+	for i in range(0, p_count, 1):
+	    PERSON_LIST[i].draw(screen, camera)
 	player.draw(screen)
         pygame.display.update()
 	
