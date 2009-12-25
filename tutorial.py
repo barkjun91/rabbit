@@ -42,6 +42,8 @@ class Player(Object):
         self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
 	self.pos_y += (keys[K_DOWN] - keys[K_UP]) * self.speed
 
+
+
 class Weapon:
     def __init__(self, weapon):
 	self.name = weapon
@@ -51,6 +53,8 @@ def tutorial_main(screen):
     viewpos = (0,0)
     player = Player("player.bmp", 2, (220,490), "test", "test", 0)
     maps = map.Map("map.txt", "tiles.png")
+    camera = map.Camera(screen)
+
     while 1:
 	screen.fill((255,255,255))
 	for event in pygame.event.get():
@@ -59,10 +63,10 @@ def tutorial_main(screen):
                 sys.exit()
 	keys = pygame.key.get_pressed()
 	
-	maps.draw(screen, viewpos)
-	player.input(keys)
+	maps.move(player, camera, keys)
+
+	maps.draw(screen, viewpos, camera)
 	player.draw(screen)
-	
         pygame.display.update()
 	
  

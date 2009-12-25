@@ -28,6 +28,16 @@ def load_image(name, colorkey=None):
         image.set_colorkey(colorkey, RLEACCEL)
     return image
 
+class Camera:
+    def __init__(self, screen):
+	x, y = screen.get_size()
+	self.view_posx, self.view_posy = (x/2, y/2)
+	self.px = 0
+    def input(self, keys, player):
+        self.px += (keys[K_RIGHT] - keys[K_LEFT]) * player.speed
+	player.pos_y += (keys[K_DOWN] - keys[K_UP]) * player.speed
+
+
 class Map:
     def __init__(self, map, tiles):
 	self.tiles = load_image(tiles)
@@ -48,7 +58,7 @@ class Map:
 		cx, cy = tile
 	        self.map[j][i] = (cx, cy)
 
-    def draw(self, view, viewpos):
+    def draw(self, view, viewpos, camera):
 	sx, sy = (self.width, 600)
 	bx = viewpos[0]/TILE_SIZE
 	by = viewpos[1]/TILE_SIZE
@@ -63,6 +73,17 @@ class Map:
 		if tile is None:
 		    continue
 		cx, cy = tile
-		view.blit(self.tiles, (x, y), (cx, cy, TILE_SIZE, TILE_SIZE))
+		view.blit(self.tiles, (x-camera.px, y), (cx, cy, TILE_SIZE, TILE_SIZE))
 
+    def move(self, player, camera, keys):
+	if player.pos_x < camera.view_posx or camera.px <0:
+	    player.input(keys)
+	    if camera.px < 0:
+		camera.px = 0 
+	if camera.view_posx <= camera.px + player.pos_x <= self.width-camera.view_posx:
+	    camera.input(keys, player)
+	    if player.pos_x < 400:
+		player.pos_x = 400
+	if self.width - camera.view_posx < camera.view_posx + camera.px:
+	    player.input(keys)
 
