@@ -63,7 +63,7 @@ class Player(Object):
 	self.spirit = 0
 
     def input(self, keys):
-        self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
+	self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
 	self.pos_y += (keys[K_DOWN] - keys[K_UP]) * self.speed
 
     def draw(self, screen):
@@ -90,10 +90,11 @@ def tutorial_main(screen):
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+
 	keys = pygame.key.get_pressed()
 	
+	
 	maps.move(player, camera, keys)
-
 	maps.draw(screen, viewpos, camera)
 	for i in range(0, p_count, 1):
 	    PERSON_LIST[i].draw(screen, camera)

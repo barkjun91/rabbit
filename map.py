@@ -41,14 +41,13 @@ class Camera:
 class Map:
     def __init__(self, map, tiles):
 	self.tiles = load_image(tiles)
-	self.width, self.height = (0, 0)
+	self.width, self.height = (0, TILE_SIZE*3)
 	l = [line.strip() for line in open('data/tutorial/'+map).readlines()]
 	self.map = [[None]*len(l[0]) for j in range(len(l))]
-
+	
 	for i in range(len(l[0])):
 	    self.width += TILE_SIZE
 	    for j in range(len(l)):
-		self.height += TILE_SIZE
 		tile = l[j][i]
 		tile = tile_coords[tile]
 		if tile is None:
@@ -79,11 +78,21 @@ class Map:
 	if player.pos_x < camera.view_posx or camera.px <0:
 	    player.input(keys)
 	    if camera.px < 0:
-		camera.px = 0 
+		camera.px = 0
 	if camera.view_posx <= camera.px + player.pos_x <= self.width-camera.view_posx:
 	    camera.input(keys, player)
 	    if player.pos_x < 400:
 		player.pos_x = 400
 	if self.width - camera.view_posx < camera.view_posx + camera.px:
 	    player.input(keys)
+	
+	if player.pos_x < 0:
+	    player.pos_x = 0
+	if player.pos_x > 800-player.image.get_width():
+	    player.pos_x = 800-player.image.get_width()
+	if player.pos_y > 600-player.image.get_height():
+	    player.pos_y = 600-player.image.get_height()
+	if player.pos_y < 600-self.height-player.image.get_height():
+	    player.pos_y = 600-self.height-player.image.get_height()
+
 
