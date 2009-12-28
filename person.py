@@ -6,7 +6,7 @@ from pygame.locals import *
 
 
 
-class Person:
+class People:
     def __init__(self, image, speed, (x,y)):
 	self.image = map.load_image(image, -1).convert_alpha()
 	self.speed = speed

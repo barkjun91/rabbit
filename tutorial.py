@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
 
-import main, map, hero, people
+import main, map, hero, person
 import pygame, sys, os, random
 from pygame.locals import *
 
 SCREEN_SIZE = (800, 600) # screen size set
 
-PERSON_LIST = []
+PEOPLE_LIST = []
 
 def load_person(data):
-    person = open('data/tutorial/'+data)
-    p_count = int(person.readline())
+    people = open('data/tutorial/'+data)
+    p_count = int(people.readline())
     try:
 	for i in range(0, p_count, 1): #c -> for(i = 0; i<1; i ++)
-	    name = str(person.readline())
+	    name = str(people.readline())
 	    if name.startswith("m_farmer"):
-	        (x, y) = ( int(person.readline()), int(person.readline()) )
-	        PERSON_LIST.insert(i, people.Person("m_farmer.png", 1, (x,y)))
-		PERSON_LIST[i].hp = 100
+	        (x, y) = ( int(people.readline()), int(people.readline()) )
+	        PEOPLE_LIST.insert(i, person.People("m_farmer.png", 1, (x,y)))
+		PEOPLE_LIST[i].hp = 100
     except pygame.error, message:
 	print 'Cannot load Person Data'
 	raise SystemExit, message
@@ -57,8 +57,8 @@ def tutorial_main(screen):
 
 	maps.draw(screen, viewpos, camera)
 	for i in range(0, p_count, 1):
-	    if PERSON_LIST[i].status.startswith("live"):
-	        PERSON_LIST[i].draw(screen, camera)	
+	    if PEOPLE_LIST[i].status.startswith("live"):
+	        PEOPLE_LIST[i].draw(screen, camera)	
 	player.draw(screen)
         pygame.display.update()
 	
