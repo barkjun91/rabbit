@@ -5,8 +5,9 @@ import pygame, sys, os, random
 from pygame.locals import *
 
 class Player:
-    def __init__(self, image, speed, (x, y), weapon, clothes, rabbits):
-	self.image = map.load_image(image, 0).convert_alpha()
+    def __init__(self, image1, image2,speed, (x, y), weapon, clothes, rabbits):
+	self.image = map.load_image(image1, -1)
+	self.s_image = map.load_image(image2, -1)
 	self.speed = speed
 	self.pos_x, self.pos_y = (x, y)
 	self.damage = arms.weapon(weapon)
@@ -24,6 +25,9 @@ class Player:
 	    self.running = 0
 
     def draw(self, screen):
+	s_x = self.pos_x + self.s_image.get_width()/4
+	s_y = self.pos_y + self.image.get_height() - self.s_image.get_height()/2
+	screen.blit(self.s_image, (s_x, s_y))
 	screen.blit(self.image, (self.pos_x, self.pos_y))
 
     def cmd(self):
@@ -43,7 +47,6 @@ class Player:
 	    self.speed = 2
 
     def attack(self, people):
-	print "ㅎㅎ"
 	people.hp -= self.damage
 	print people.hp
 	people.attacked()

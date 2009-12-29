@@ -16,7 +16,7 @@ def load_person(data):
 	    name = str(people.readline())
 	    if name.startswith("m_farmer"):
 	        (x, y) = ( int(people.readline()), int(people.readline()) )
-	        PEOPLE_LIST.insert(i, person.People("m_farmer.png", 1, (x,y)))
+	        PEOPLE_LIST.insert(i, person.People("m_farmer.png", "m_f_shadow.png", 1, (x,y)))
 		PEOPLE_LIST[i].hp = 100
     except pygame.error, message:
 	print 'Cannot load Person Data'
@@ -27,7 +27,7 @@ def load_person(data):
 def tutorial_main(screen):
     pygame.init()
     viewpos = (0,0)
-    player = hero.Player("player.png", 2, (220,320), "hand", "test", 5)
+    player = hero.Player("player.png", "p_shadow.png",2, (220,320), "hand", "test", 5)
     maps = map.Map("map.txt", "tiles.png")
     camera = map.Camera(screen)
     p_count = load_person("person.txt")
