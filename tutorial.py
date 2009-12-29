@@ -4,7 +4,7 @@ import main, map, hero, person
 import pygame, sys, os, random
 from pygame.locals import *
 
-SCREEN_SIZE = (800, 600) # screen size set
+SCREEN_SIZE = (640, 480) # screen size set
 
 PEOPLE_LIST = []
 
@@ -27,14 +27,13 @@ def load_person(data):
 def tutorial_main(screen):
     pygame.init()
     viewpos = (0,0)
-    player = hero.Player("player.png", 2, (220,490), "hand", "test", 5)
+    player = hero.Player("player.png", 2, (220,320), "hand", "test", 5)
     maps = map.Map("map.txt", "tiles.png")
     camera = map.Camera(screen)
     p_count = load_person("person.txt")
 
     while 1:
 	screen.fill((255,255,255))
-
         player.cmddelay += 1
 
 	for event in pygame.event.get():
