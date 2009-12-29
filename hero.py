@@ -18,6 +18,13 @@ class Player:
         self.cmddelay = 0
 	self.running = 0
 
+	self.s_x = 0
+	self.s_y = 0
+
+	self.radius = self.s_image.get_width()/3
+	self.origin_x = self.pos_x + self.image.get_width()/2
+ 	self.origin_y = self.pos_y + self.image.get_height()+self.radius
+
     def input(self, keys):
 	self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
 	self.pos_y += (keys[K_DOWN] - keys[K_UP]) * self.speed * 0.7
@@ -25,9 +32,9 @@ class Player:
 	    self.running = 0
 
     def draw(self, screen):
-	s_x = self.pos_x + self.s_image.get_width()/4
-	s_y = self.pos_y + self.image.get_height() - self.s_image.get_height()/2
-	screen.blit(self.s_image, (s_x, s_y))
+	self.s_x = self.pos_x + self.s_image.get_width()/4
+	self.s_y = self.pos_y + self.image.get_height() - self.s_image.get_height()/2
+	screen.blit(self.s_image, (self.s_x, self.s_y))
 	screen.blit(self.image, (self.pos_x, self.pos_y))
 
     def cmd(self):

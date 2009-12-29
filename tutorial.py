@@ -31,6 +31,7 @@ def tutorial_main(screen):
     maps = map.Map("map.txt", "tiles.png")
     camera = map.Camera(screen)
     p_count = load_person("person.txt")
+    clash = 0
 
     while 1:
 	screen.fill((255,255,255))
@@ -52,12 +53,14 @@ def tutorial_main(screen):
         if player.cmddelay >= 15:
 	    player.command = ""
 	    player.cmddelay = 0
-
-
 	maps.draw(screen, viewpos, camera)
 	for i in range(0, p_count, 1):
 	    if PEOPLE_LIST[i].status.startswith("live"):
+		clash = maps.clash(player, PEOPLE_LIST[i])
 	        PEOPLE_LIST[i].draw(screen, camera)	
+
+	if clash:
+	    print "아야"
 	player.draw(screen)
         pygame.display.update()
 	

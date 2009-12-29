@@ -14,11 +14,21 @@ class People:
 	self.pos_x, self.pos_y = (x, y)
 	self.hp = 1
 	self.status = "live"
+	
+	self.s_x = 0
+	self.s_y = 0
+
+	self.radius = self.s_image.get_width()/2
+	self.origin_x = self.pos_x + self.image.get_width()/2
+ 	self.origin_y = self.pos_y + self.image.get_height()
 
     def draw(self, screen, camera):
-	s_x = self.pos_x - camera.px + self.image.get_width()/2 - self.s_image.get_width()/2
-	s_y = self.pos_y + self.image.get_height() - self.s_image.get_height()/2
-	screen.blit(self.s_image, (s_x, s_y))
+	self.s_x = self.pos_x - camera.px + self.image.get_width()/2 - self.s_image.get_width()/2
+	self.s_y = self.pos_y + self.image.get_height() - self.s_image.get_height()/2
+	self.origin_x = self.pos_x + self.image.get_width()/2 - camera.px
+ 	self.origin_y = self.pos_y + self.image.get_height() + self.radius/3
+
+	screen.blit(self.s_image, (self.s_x, self.s_y))
 	screen.blit(self.image, (self.pos_x-camera.px, self.pos_y))
 
     def attacked(self):

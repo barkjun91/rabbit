@@ -71,6 +71,8 @@ class Map:
 		view.blit(self.tiles, (x-camera.px, y), (cx, cy, TILE_SIZE, TILE_SIZE))
 
     def move(self, player, camera, keys):
+	player.origin_x = player.pos_x + player.image.get_width()/2
+ 	player.origin_y = player.pos_y + player.image.get_height()
 	if player.pos_x < camera.view_posx or camera.px <0:
 	    player.input(keys)
 	    if camera.px < 0:
@@ -92,3 +94,12 @@ class Map:
 	    player.pos_y = 480-self.height-player.image.get_height()
 
 
+    def clash(self, player, person):
+	t1 = player.origin_x - person.origin_x
+	t2 = player.origin_y - person.origin_y
+	t3 = player.radius + person.radius
+	t1 *= t1
+	t2 *= t2
+	t3 *= t3
+	if ((t1+t2) < t3):
+	    print "아야"
