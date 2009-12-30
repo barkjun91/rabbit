@@ -65,10 +65,10 @@ def tutorial_main(screen):
 	    if PEOPLE_LIST[i].status.startswith("live"):
 	        PEOPLE_LIST[i].draw(screen, camera)
 
-	clash = maps.clash(player, person_sprite)
+	clash = player.clash(player, person_sprite)
+
 	player.draw(screen, clash)
         pygame.display.update()
-	pygame.display.flip()
 	
  
 if __name__ == '__main__':

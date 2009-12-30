@@ -24,10 +24,6 @@ class Player(pygame.sprite.Sprite):
 	self.s_x = 0
 	self.s_y = 0
 
-	self.radius = self.s_image.get_width()/3
-	self.origin_x = self.pos_x + self.image.get_width()/2
- 	self.origin_y = self.pos_y + self.image.get_height()+self.radius
-
     def input(self, keys):
 	self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
 	self.pos_y += (keys[K_DOWN] - keys[K_UP]) * self.speed * 0.7
@@ -35,8 +31,8 @@ class Player(pygame.sprite.Sprite):
 	    self.running = 0
 
     def draw(self, screen, clash):
-	self.s_x = self.pos_x + self.s_image.get_width()/4
-	self.s_y = self.pos_y + self.image.get_height() - self.s_image.get_height()/2
+	self.s_x=self.pos_x+self.s_image.get_width()/4
+	self.s_y=self.pos_y+self.image.get_height()-self.s_image.get_height()/2
 	self.rect.x = self.s_x
 	self.rect.y = self.s_y
 	screen.blit(self.s_image, (self.s_x, self.s_y))
@@ -66,6 +62,11 @@ class Player(pygame.sprite.Sprite):
 	    people.hp -= self.damage
 	print people.hp
 	people.attacked()
+
+    def clash(self, sprite, group):
+	if pygame.sprite.spritecollideany(sprite, group):
+	    return True
+	return False
 
 def press_cmd(keys, player):
     if keys == pygame.K_RIGHT:
