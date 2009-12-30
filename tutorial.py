@@ -34,16 +34,16 @@ def tutorial_main(screen):
     p_count = load_person("person.txt")
 
     clash = False
+    delay = 1
 
     player_sprite = pygame.sprite.RenderUpdates(player)
     person_sprite = pygame.sprite.Group(PEOPLE_LIST[0])
     for i in range(1, p_count, 1):
-         person_sprite.add(PEOPLE_LIST[i])
+        person_sprite.add(PEOPLE_LIST[i])
 
     while 1:
 	screen.fill((255,255,255))
         player.cmddelay += 1
-
 	for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -51,7 +51,7 @@ def tutorial_main(screen):
 	    elif event.type == pygame.KEYDOWN:
 		hero.press_cmd(event.key, player)
 		if event.key == pygame.K_x:
-		    player.attack(PEOPLE_LIST[0], clash)
+		    player.attack(PEOPLE_LIST, clash)
 
 	keys = pygame.key.get_pressed()
 	maps.move(player, camera, keys)
@@ -60,6 +60,7 @@ def tutorial_main(screen):
         if player.cmddelay >= 15:
 	    player.command = ""
 	    player.cmddelay = 0
+
 	maps.draw(screen, viewpos, camera)
 	for i in range(0, p_count, 1):
 	    if PEOPLE_LIST[i].status.startswith("live"):

@@ -20,7 +20,6 @@ class People(pygame.sprite.Sprite):
 	self.s_x = 0
 	self.s_y = 0
 
-
     def draw(self, screen, camera):
 	self.s_x=self.pos_x-camera.px+self.image.get_width()/2-self.s_image.get_width()/2
 	self.s_y=self.pos_y+self.image.get_height()-self.s_image.get_height()/2

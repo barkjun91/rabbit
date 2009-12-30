@@ -59,9 +59,9 @@ class Player(pygame.sprite.Sprite):
 
     def attack(self, people, clash):
 	if clash:
-	    people.hp -= self.damage
-	print people.hp
-	people.attacked()
+	    people[1].hp -= self.damage
+	print people[1].hp
+	people[1].attacked()
 
     def clash(self, sprite, group):
 	if pygame.sprite.spritecollideany(sprite, group):
