@@ -20,10 +20,8 @@ def main():
     #title set
     pygame.display.set_caption('Rabbit Hazard') 
     game_status = True
-    clock = pygame.time.Clock()
     #call stage1.main
     while game_status:
-	clock.tick(60)
     	if stage == 3:
            game_status = tutorial.tutorial_main(screen)
 

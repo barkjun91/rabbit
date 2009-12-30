@@ -35,6 +35,7 @@ def tutorial_main(screen):
 
     clash = False
     delay = 1
+    clock = pygame.time.Clock()
 
     player_sprite = pygame.sprite.RenderUpdates(player)
     person_sprite = pygame.sprite.Group(PEOPLE_LIST[0])
@@ -43,6 +44,7 @@ def tutorial_main(screen):
 
     while 1:
 	screen.fill((255,255,255))
+	clock.tick(60)
         player.cmddelay += 1
 	for event in pygame.event.get():
             if event.type == QUIT:
