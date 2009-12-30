@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import main, map, hero, people
+import main, map, hero, person
 import pygame, sys, os, random
 from pygame.locals import *
 

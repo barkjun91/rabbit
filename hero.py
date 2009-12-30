@@ -10,6 +10,7 @@ class Player(pygame.sprite.Sprite):
 	self.image = map.load_image(image1+".png", -1)
 	self.c_image = map.load_image(image1+"_clash.png", -1)
 	self.s_image = map.load_image(image2, -1)
+
 	self.rect = self.s_image.get_rect()
 	self.speed = speed
 	self.pos_x, self.pos_y = (x, y)
