@@ -27,11 +27,18 @@ def load_person(data):
 def tutorial_main(screen):
     pygame.init()
     viewpos = (0,0)
-    player = hero.Player("player.png", "p_shadow.png",2, (220,320), "hand", "test", 5)
+
+    player = hero.Player("player", "p_shadow.png",2, (220,320), "hand", "test", 5)
     maps = map.Map("map.txt", "tiles.png")
     camera = map.Camera(screen)
     p_count = load_person("person.txt")
-    clash = 0
+
+    clash = False
+
+    player_sprite = pygame.sprite.RenderUpdates(player)
+    person_sprite = pygame.sprite.Group(PEOPLE_LIST[0])
+    for i in range(1, p_count, 1):
+         person_sprite.add(PEOPLE_LIST[i])
 
     while 1:
 	screen.fill((255,255,255))
@@ -44,7 +51,7 @@ def tutorial_main(screen):
 	    elif event.type == pygame.KEYDOWN:
 		hero.press_cmd(event.key, player)
 		if event.key == pygame.K_x:
-		    player.attack(PERSON_LIST[0])
+		    player.attack(PEOPLE_LIST[0], clash)
 
 	keys = pygame.key.get_pressed()
 	maps.move(player, camera, keys)
@@ -56,13 +63,12 @@ def tutorial_main(screen):
 	maps.draw(screen, viewpos, camera)
 	for i in range(0, p_count, 1):
 	    if PEOPLE_LIST[i].status.startswith("live"):
-		clash = maps.clash(player, PEOPLE_LIST[i])
-	        PEOPLE_LIST[i].draw(screen, camera)	
+	        PEOPLE_LIST[i].draw(screen, camera)
 
-	if clash:
-	    print "아야"
-	player.draw(screen)
+	clash = maps.clash(player, person_sprite)
+	player.draw(screen, clash)
         pygame.display.update()
+	pygame.display.flip()
 	
  
 if __name__ == '__main__':

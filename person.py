@@ -6,10 +6,12 @@ from pygame.locals import *
 
 
 
-class People:
+class People(pygame.sprite.Sprite):
     def __init__(self, image1, image2, speed, (x,y)):
+	pygame.sprite.Sprite.__init__(self)
 	self.image = map.load_image(image1, -1)
 	self.s_image = map.load_image(image2)
+	self.rect = self.s_image.get_rect()
 	self.speed = speed
 	self.pos_x, self.pos_y = (x, y)
 	self.hp = 1
@@ -25,6 +27,8 @@ class People:
     def draw(self, screen, camera):
 	self.s_x = self.pos_x - camera.px + self.image.get_width()/2 - self.s_image.get_width()/2
 	self.s_y = self.pos_y + self.image.get_height() - self.s_image.get_height()/2
+	self.rect.x = self.s_x
+	self.rect.y = self.s_y
 	self.origin_x = self.pos_x + self.image.get_width()/2 - camera.px
  	self.origin_y = self.pos_y + self.image.get_height() + self.radius/3
 

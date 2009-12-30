@@ -4,10 +4,13 @@ import main, map, arms
 import pygame, sys, os, random
 from pygame.locals import *
 
-class Player:
+class Player(pygame.sprite.Sprite):
     def __init__(self, image1, image2,speed, (x, y), weapon, clothes, rabbits):
-	self.image = map.load_image(image1, -1)
+	pygame.sprite.Sprite.__init__(self)
+	self.image = map.load_image(image1+".png", -1)
+	self.c_image = map.load_image(image1+"_clash.png", -1)
 	self.s_image = map.load_image(image2, -1)
+	self.rect = self.s_image.get_rect()
 	self.speed = speed
 	self.pos_x, self.pos_y = (x, y)
 	self.damage = arms.weapon(weapon)
@@ -31,11 +34,16 @@ class Player:
 	if keys[K_RIGHT]+keys[K_LEFT]+keys[K_DOWN]+keys[K_UP] == 0:
 	    self.running = 0
 
-    def draw(self, screen):
+    def draw(self, screen, clash):
 	self.s_x = self.pos_x + self.s_image.get_width()/4
 	self.s_y = self.pos_y + self.image.get_height() - self.s_image.get_height()/2
+	self.rect.x = self.s_x
+	self.rect.y = self.s_y
 	screen.blit(self.s_image, (self.s_x, self.s_y))
-	screen.blit(self.image, (self.pos_x, self.pos_y))
+	if not clash:
+	  screen.blit(self.image, (self.pos_x, self.pos_y))
+	else:
+	  screen.blit(self.c_image, (self.pos_x, self.pos_y))
 
     def cmd(self):
 	if self.command.startswith("rr"):
@@ -53,8 +61,9 @@ class Player:
 	else:
 	    self.speed = 2
 
-    def attack(self, people):
-	people.hp -= self.damage
+    def attack(self, people, clash):
+	if clash:
+	    people.hp -= self.damage
 	print people.hp
 	people.attacked()
 

@@ -90,16 +90,12 @@ class Map:
 	    player.pos_x = 640-player.image.get_width()
 	if player.pos_y > 480-player.image.get_height():
 	    player.pos_y = 480-player.image.get_height()
-	if player.pos_y < 480-self.height-player.image.get_height():
-	    player.pos_y = 480-self.height-player.image.get_height()
+	if player.pos_y < 480-self.height-player.image.get_height()+player.s_image.get_height():
+	    player.pos_y = 480-self.height-player.image.get_height()+player.s_image.get_height()
 
 
-    def clash(self, player, person):
-	t1 = player.origin_x - person.origin_x
-	t2 = player.origin_y - person.origin_y
-	t3 = player.radius + person.radius
-	t1 *= t1
-	t2 *= t2
-	t3 *= t3
-	if ((t1+t2) < t3):
-	    print "아야"
+    def clash(self, sprite, group):
+	if pygame.sprite.spritecollideany(sprite, group):
+	    return True
+	return False
+
