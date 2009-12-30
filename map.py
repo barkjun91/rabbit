@@ -71,6 +71,8 @@ class Map:
 		view.blit(self.tiles, (x-camera.px, y), (cx, cy, TILE_SIZE, TILE_SIZE))
 
     def move(self, player, camera, keys):
+	if keys[K_RIGHT] + keys[K_LEFT] + keys[K_DOWN] + keys[K_UP] == 0:
+	    player.running = False
 	if player.pos_x < camera.view_posx or camera.px <0:
 	    player.input(keys)
 	    if camera.px < 0:

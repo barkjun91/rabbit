@@ -44,7 +44,7 @@ def tutorial_main(screen):
 
     while 1:
 	screen.fill((255,255,255))
-	clock.tick(60)
+	clock.tick(50)
         player.cmddelay += 1
 	for event in pygame.event.get():
             if event.type == QUIT:
@@ -56,6 +56,7 @@ def tutorial_main(screen):
 		    player.attack(PEOPLE_LIST, clash)
 
 	keys = pygame.key.get_pressed()
+	
 	maps.move(player, camera, keys)
 
 	# -- 일정 시간 키 입력이 없으면 초기화 / 기준 15프레임 
@@ -72,6 +73,7 @@ def tutorial_main(screen):
 
 	player.draw(screen, clash)
         pygame.display.update()
+	pygame.display.flip()
 	
  
 if __name__ == '__main__':
