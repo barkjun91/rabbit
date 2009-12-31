@@ -8,19 +8,17 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, image1, image2,speed, (x, y), clothes, rabbits):
 	pygame.sprite.Sprite.__init__(self)
 
-	self.image = map.load_image(image1+".png", -1)
-	stand_left = pygame.transform.flip(self.image, True, False)	
-	self.image_left = stand_left
+	self.image = map.load_image(image1+"_right.png", -1)
+	self.image_left = map.load_image(image1+"_left.png",-1)
 
-	self.c_image = map.load_image(image1+"_clash.png", -1)
-	clash_left = pygame.transform.flip(self.c_image, True, False)
-	self.c_image_left = clash_left
+	self.c_image = map.load_image(image1+"_clash_right.png", -1)
+	self.c_image_left = map.load_image(image1+"_clash_left.png", -1)
 
 	self.s_image = map.load_image(image2, -1)
 
-	player_run = map.load_image("player_run.png")
+	player_run = map.load_image("player_run_right.png")
 	self.right_run = get_frame(get_image_list(player_run, 50))
-	player_left_run = pygame.transform.flip(player_run, True, False)
+	player_left_run = map.load_image("player_run_left.png")
 	self.left_run = get_frame(get_image_list(player_left_run, 50))	
 
 	self.image_view = self.image
