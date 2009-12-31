@@ -17,7 +17,9 @@ class Player(pygame.sprite.Sprite):
 	self.rect = self.s_image.get_rect()
 	self.speed = speed
 	self.pos_x, self.pos_y = (x, y)
-	self.damage = arms.weapon(weapon)
+
+	self.weapon = arms.Weapon(weapon)
+
 	self.clothes = clothes
 	self.rabbits = rabbits
 	self.spirit = 0
