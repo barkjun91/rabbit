@@ -11,15 +11,19 @@ class Player(pygame.sprite.Sprite):
 	self.image = map.load_image(image1+".png", -1)
 	stand_left = pygame.transform.flip(self.image, True, False)	
 	self.image_left = stand_left
-	self.image_view = self.image
 
 	self.c_image = map.load_image(image1+"_clash.png", -1)
+	clash_left = pygame.transform.flip(self.c_image, True, False)
+	self.c_image_left = clash_left
+
 	self.s_image = map.load_image(image2, -1)
 
 	player_run = map.load_image("player_run.png")
 	self.right_run = get_frame(get_image_list(player_run, 50))
 	player_left_run = pygame.transform.flip(player_run, True, False)
 	self.left_run = get_frame(get_image_list(player_left_run, 50))	
+
+	self.image_view = self.image
 
 	self.rect = self.s_image.get_rect()
 	self.speed = speed
@@ -55,7 +59,10 @@ class Player(pygame.sprite.Sprite):
 	    elif self.course.startswith("left"):
 		self.image_view = self.image_left
 	elif clash:
-	    self.image_view = self.c_image 
+	    if self.course.startswith("right"):
+	        self.image_view = self.c_image 
+	    elif self.course.startswith("left"):
+		self.image_view = self.c_image_left
 	elif self.running:
 	    if self.course.startswith("right"):
 	        if self.f_delay > 15:
