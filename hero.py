@@ -93,6 +93,8 @@ def press_cmd(keys, player):
 	player.cmddelay = 0
     player.cmd()
     print player.command
+    print player.pos_x
+    print player.pos_y
 
 def get_image_list(image, frame_width):
     image_list = []

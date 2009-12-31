@@ -84,8 +84,10 @@ class Map:
 	if self.width - camera.view_posx < camera.view_posx + camera.px:
 	    player.input(keys)
 	
-	if player.pos_x < 0:
-	    player.pos_x = 0
+#	if player.pos_x < 0:
+# 	    player.pos_x = 0
+	if player.pos_x < 480-(player.pos_y+player.image.get_height()):
+	    player.pos_x = 480-(player.pos_y+player.image.get_height())
 	if player.pos_x > 640-player.image.get_width():
 	    player.pos_x = 640-player.image.get_width()
 	if player.pos_y > 480-player.image.get_height():
