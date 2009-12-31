@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import main, map, hero, person
+import main, map, hero, person, arms
 import pygame, sys, os, random
 from pygame.locals import *
 
@@ -28,7 +28,8 @@ def tutorial_main(screen):
     pygame.init()
     viewpos = (0,0)
 
-    player = hero.Player("player", "p_shadow.png",2, (220,320), "hand", "test", 5)
+    player = hero.Player("player", "p_shadow.png",2, (220,320), "test", 5)
+    weapon = arms.Weapon("hand")
     maps = map.Map("map.txt", "tiles.png")
     camera = map.Camera(screen)
     p_count = load_person("person.txt")
@@ -73,6 +74,7 @@ def tutorial_main(screen):
 	clash = player.clash(player, person_sprite)
 
 	player.draw(screen, clash)
+	weapon.draw(screen, player)
         pygame.display.update()
 	pygame.display.flip()
 	

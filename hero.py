@@ -5,7 +5,7 @@ import pygame, sys, os, random
 from pygame.locals import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, image1, image2,speed, (x, y), weapon, clothes, rabbits):
+    def __init__(self, image1, image2,speed, (x, y), clothes, rabbits):
 	pygame.sprite.Sprite.__init__(self)
 	self.image = map.load_image(image1+".png", -1)
 	self.c_image = map.load_image(image1+"_clash.png", -1)
@@ -17,8 +17,6 @@ class Player(pygame.sprite.Sprite):
 	self.rect = self.s_image.get_rect()
 	self.speed = speed
 	self.pos_x, self.pos_y = (x, y)
-
-	self.weapon = arms.Weapon(weapon)
 
 	self.clothes = clothes
 	self.rabbits = rabbits
