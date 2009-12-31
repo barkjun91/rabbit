@@ -9,6 +9,10 @@ class Player(pygame.sprite.Sprite):
 	pygame.sprite.Sprite.__init__(self)
 
 	self.image = map.load_image(image1+".png", -1)
+	stand_left = pygame.transform.flip(self.image, True, False)	
+	self.image_left = stand_left
+	self.image_view = self.image
+
 	self.c_image = map.load_image(image1+"_clash.png", -1)
 	self.s_image = map.load_image(image2, -1)
 
@@ -30,40 +34,40 @@ class Player(pygame.sprite.Sprite):
 	self.running = False
 	self.attack = False	
 
-	self.r_frame = self.right_run.next()
-
 	self.s_x = 0
 	self.s_y = 0
 	self.f_delay = 0
-	self.course = ""
+	self.course = "right"
 
     def input(self, keys):
 	self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
 	self.pos_y += (keys[K_DOWN] - keys[K_UP]) * self.speed * 0.7
 	    
     def draw(self, screen, clash):
+	rect = Rect((self.pos_x, self.pos_y, 75, 50))
 	self.s_x=self.pos_x+self.s_image.get_width()/4
 	self.s_y=self.pos_y+self.image.get_height()-self.s_image.get_height()/2
 	self.rect.x = self.s_x
 	self.rect.y = self.s_y
-	screen.blit(self.s_image, (self.s_x, self.s_y)) 
 	if not clash and not self.running:
-	    screen.blit(self.image, (self.pos_x, self.pos_y))
+	    if self.course.startswith("right"):
+	        self.image_view = self.image
+	    elif self.course.startswith("left"):
+		self.image_view = self.image_left
 	elif clash:
-	    screen.blit(self.c_image, (self.pos_x, self.pos_y))
+	    self.image_view = self.c_image 
 	elif self.running:
-	    rect = Rect((self.pos_x, self.pos_y, 75, 50))
 	    if self.course.startswith("right"):
 	        if self.f_delay > 15:
-	            self.r_frame = self.right_run.next()
+	            self.image_view = self.right_run.next()
 		    self.f_delay = 0
-	        screen.blit(self.r_frame, rect)	
 	    elif self.course.startswith("left"):
 	        if self.f_delay > 15:
-	            self.r_frame = self.left_run.next()
+	            self.image_view = self.left_run.next()
 		    self.f_delay = 0
-	        screen.blit(self.r_frame, rect)	
-	    
+	screen.blit(self.s_image, (self.s_x, self.s_y))  
+	screen.blit(self.image_view, rect)
+	
 
     def cmd(self):
 	if self.command.startswith("rr"):
@@ -100,11 +104,9 @@ def press_cmd(keys, player):
     if keys == pygame.K_UP:
 	player.command = player.command + 'u'
 	player.cmddelay = 0
-	player.course = "up"
     if keys == pygame.K_DOWN:
 	player.command = player.command + 'd'
 	player.cmddelay = 0
-	player.course = "down"
     if keys == pygame.K_LEFT:
 	player.command = player.command + 'l'
 	player.cmddelay = 0
