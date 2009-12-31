@@ -44,7 +44,7 @@ def tutorial_main(screen):
 
     while 1:
 	screen.fill((255,255,255))
-	clock.tick(50)
+	clock.tick(60)
         player.cmddelay += 1
 	for event in pygame.event.get():
             if event.type == QUIT:
