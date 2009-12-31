@@ -24,11 +24,11 @@ class Player(pygame.sprite.Sprite):
         self.command = ""
         self.cmddelay = 0
 	self.running = False
-
-	self.delay = pygame.time.Clock()
+	self.frame = self.step.next()
 
 	self.s_x = 0
 	self.s_y = 0
+	self.f_delay = 0
 
     def input(self, keys):
 	self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
@@ -46,7 +46,10 @@ class Player(pygame.sprite.Sprite):
 	    screen.blit(self.c_image, (self.pos_x, self.pos_y))
 	elif self.running:
 	    rect = Rect((self.pos_x, self.pos_y, 75, 50))
-	    screen.blit(self.step.next(), rect)	
+	    if self.f_delay > 15:
+	        self.frame = self.step.next()
+		self.f_delay = 0
+	    screen.blit(self.frame, rect)	
 	    
 
     def cmd(self):
