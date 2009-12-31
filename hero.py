@@ -7,13 +7,16 @@ from pygame.locals import *
 class Player(pygame.sprite.Sprite):
     def __init__(self, image1, image2,speed, (x, y), clothes, rabbits):
 	pygame.sprite.Sprite.__init__(self)
+
 	self.image = map.load_image(image1+".png", -1)
 	self.c_image = map.load_image(image1+"_clash.png", -1)
 	self.s_image = map.load_image(image2, -1)
 
-	player_walk = map.load_image("player_walk.png")
-	walk = get_image_list(player_walk, 50)
-	self.step = get_frame(walk)
+	player_run = map.load_image("player_run.png")
+	self.right_run = get_frame(get_image_list(player_run, 50))
+	player_left_run = pygame.transform.flip(player_run, True, False)
+	self.left_run = get_frame(get_image_list(player_left_run, 50))	
+
 	self.rect = self.s_image.get_rect()
 	self.speed = speed
 	self.pos_x, self.pos_y = (x, y)
@@ -23,12 +26,16 @@ class Player(pygame.sprite.Sprite):
 	self.spirit = 0
         self.command = ""
         self.cmddelay = 0
+
 	self.running = False
-	self.frame = self.step.next()
+	self.attack = False	
+
+	self.r_frame = self.right_run.next()
 
 	self.s_x = 0
 	self.s_y = 0
 	self.f_delay = 0
+	self.course = ""
 
     def input(self, keys):
 	self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
@@ -46,10 +53,16 @@ class Player(pygame.sprite.Sprite):
 	    screen.blit(self.c_image, (self.pos_x, self.pos_y))
 	elif self.running:
 	    rect = Rect((self.pos_x, self.pos_y, 75, 50))
-	    if self.f_delay > 15:
-	        self.frame = self.step.next()
-		self.f_delay = 0
-	    screen.blit(self.frame, rect)	
+	    if self.course.startswith("right"):
+	        if self.f_delay > 15:
+	            self.r_frame = self.right_run.next()
+		    self.f_delay = 0
+	        screen.blit(self.r_frame, rect)	
+	    elif self.course.startswith("left"):
+	        if self.f_delay > 15:
+	            self.r_frame = self.left_run.next()
+		    self.f_delay = 0
+	        screen.blit(self.r_frame, rect)	
 	    
 
     def cmd(self):
@@ -70,11 +83,9 @@ class Player(pygame.sprite.Sprite):
 	    self.running = False
 
 
-    def attack(self, people, clash):
-	if clash:
-	    people[1].hp -= self.damage
-	print people[1].hp
-	people[1].attacked()
+    def hit(self, people, clash):
+	print "attack"
+	self.attack = False
 
     def clash(self, sprite, group):
 	if pygame.sprite.spritecollideany(sprite, group):
@@ -85,15 +96,19 @@ def press_cmd(keys, player):
     if keys == pygame.K_RIGHT:
 	player.command = player.command + 'r'
 	player.cmddelay = 0
+	player.course = "right"
     if keys == pygame.K_UP:
 	player.command = player.command + 'u'
 	player.cmddelay = 0
+	player.course = "up"
     if keys == pygame.K_DOWN:
 	player.command = player.command + 'd'
 	player.cmddelay = 0
+	player.course = "down"
     if keys == pygame.K_LEFT:
 	player.command = player.command + 'l'
 	player.cmddelay = 0
+	player.course = "left"
     player.cmd()
     print player.command
     print player.pos_x

@@ -55,7 +55,8 @@ def tutorial_main(screen):
 	    elif event.type == pygame.KEYDOWN:
 		hero.press_cmd(event.key, player)
 		if event.key == pygame.K_x:
-		    player.attack(PEOPLE_LIST, clash)
+		    player.attack = True
+		    player.hit(PEOPLE_LIST, clash)
 
 	keys = pygame.key.get_pressed()
 	
