@@ -75,7 +75,7 @@ def tutorial_main(screen):
 	clash = player.clash(player, person_sprite)
 
 	player.draw(screen, clash)
-	weapon.draw(screen, player)
+	weapon.draw(screen, player, clash)
         pygame.display.update()
 	pygame.display.flip()
 	
