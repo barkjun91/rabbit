@@ -150,6 +150,7 @@ def press_cmd(keys, player):
     print player.command
     print player.pos_x
     print player.pos_y
+    print player.image.get_width()
 
 def get_image_list(image, frame_width):
     image_list = []
