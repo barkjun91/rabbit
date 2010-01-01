@@ -9,6 +9,7 @@ from pygame.locals import *
 class People(pygame.sprite.Sprite):
     def __init__(self, image1, image2, speed, (x,y)):
 	pygame.sprite.Sprite.__init__(self)
+	self.type = "person"
 	self.image = map.load_image(image1, -1)
 	self.s_image = map.load_image(image2)
 	self.rect = self.s_image.get_rect()

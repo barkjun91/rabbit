@@ -7,6 +7,7 @@ from pygame.locals import *
 SCREEN_SIZE = (640, 480) # screen size set
 
 PEOPLE_LIST = []
+DRAW_LIST = []
 
 def load_person(data):
     people = open('data/tutorial/'+data)
@@ -42,6 +43,10 @@ def tutorial_main(screen):
     person_sprite = pygame.sprite.Group(PEOPLE_LIST[0])
     for i in range(1, p_count, 1):
         person_sprite.add(PEOPLE_LIST[i])
+    DRAW_LIST.append(player)
+    for i in range(0, p_count, 1):
+        if PEOPLE_LIST[i].status.startswith("live"):
+            DRAW_LIST.append(PEOPLE_LIST[i])
 
     while 1:
 	screen.fill((255,255,255))
@@ -68,16 +73,18 @@ def tutorial_main(screen):
         if player.cmddelay >= 15:
 	    player.command = ""
 	    player.cmddelay = 0
-
-	maps.draw(screen, viewpos, camera)
-	for i in range(0, p_count, 1):
-	    if PEOPLE_LIST[i].status.startswith("live"):
-	        PEOPLE_LIST[i].draw(screen, camera)
-
 	clash = player.clash(player, person_sprite)
+	maps.draw(screen, viewpos, camera)
 
-	player.draw(screen, clash, weapon)
-	weapon.draw(screen, player, clash)
+	DRAW_LIST.sort(key=lambda x: x.s_y)	
+
+	for i in range(0, p_count+1, 1):
+	    if DRAW_LIST[i].type.startswith("person"):
+		DRAW_LIST[i].draw(screen, camera)
+	    if DRAW_LIST[i].type.startswith("player"):
+		player.draw(screen, clash, weapon)
+		weapon.draw(screen, player, clash)
+
         pygame.display.update()
 	pygame.display.flip()
 	

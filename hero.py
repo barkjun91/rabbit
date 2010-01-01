@@ -7,6 +7,7 @@ from pygame.locals import *
 class Player(pygame.sprite.Sprite):
     def __init__(self, image1, image2,speed, (x, y), clothes, rabbits):
 	pygame.sprite.Sprite.__init__(self)
+	self.type = "player"
 
 	self.image = map.load_image(image1+"_right.png", -1)
 	self.image_left = map.load_image(image1+"_left.png",-1)
