@@ -95,3 +95,9 @@ class Map:
 	if player.pos_y < 480-self.height-player.image.get_height()+player.s_image.get_height():
 	    player.pos_y = 480-self.height-player.image.get_height()+player.s_image.get_height()
 
+    def draw_append(self, player, PEOPLE_LIST, p_count):
+	count = 0
+
+
+        return (draw_list, count)
+

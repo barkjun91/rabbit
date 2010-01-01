@@ -63,6 +63,7 @@ class Player(pygame.sprite.Sprite):
 	        self.image_view = self.image
 	    elif self.course.startswith("left"):
 		self.image_view = self.image_left
+
 	elif self.attack:
 	    if self.course.startswith("right"):
 	        if self.f_delay > weapon.speed:
@@ -78,11 +79,13 @@ class Player(pygame.sprite.Sprite):
 		print "공격끝!"
 		self.attack = False
 		self.f_attack = 0
+
 	elif clash:
 	    if self.course.startswith("right"):
 	        self.image_view = self.c_image 
 	    elif self.course.startswith("left"):
 		self.image_view = self.c_image_left
+
 	elif self.running:
 	    if self.course.startswith("right"):
 	        if self.f_delay > 15:
@@ -114,11 +117,17 @@ class Player(pygame.sprite.Sprite):
 	    self.running = False
 
 
-    def hit(self, people, clash):
-	print "attack"
+    def hit(self, wea, peo):
+        who = pygame.sprite.spritecollideany(wea, peo)
+	if who:
+	    print "얍얍!"
+	    who.attacked(wea.damage)
+	else:
+	    print "허공!"
 
-    def clash(self, sprite, group):
-	if pygame.sprite.spritecollideany(sprite, group):
+    def clash(self, pla, peo):
+        who = pygame.sprite.spritecollideany(pla, peo)
+	if who and who.status.startswith("live"):
 	    return True
 	return False
 

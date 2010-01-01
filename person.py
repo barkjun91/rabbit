@@ -20,7 +20,6 @@ class People(pygame.sprite.Sprite):
 	
 	self.s_x = 0
 	self.s_y = 0
-
     def draw(self, screen, camera):
 	self.s_x=self.pos_x-camera.px+self.image.get_width()/2-self.s_image.get_width()/2
 	self.s_y=self.pos_y+self.image.get_height()-self.s_image.get_height()/2
@@ -30,9 +29,11 @@ class People(pygame.sprite.Sprite):
 	screen.blit(self.s_image, (self.s_x, self.s_y))
 	screen.blit(self.image, (self.pos_x-camera.px, self.pos_y))
 
-    def attacked(self):
+    def attacked(self, hitpoint):
 	if self.hp > 0:
-	    print "live"
+	    print "아야"
+            self.hp -= hitpoint
 	elif self.hp <= 0:
+	    print "으아아아아"
 	    self.status = "die"
 	    print "die"

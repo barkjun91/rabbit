@@ -5,8 +5,9 @@ import pygame, sys, os, random
 from pygame.locals import *
 
 
-class Weapon:
+class Weapon(pygame.sprite.Sprite):
     def __init__(self, weapon):
+	pygame.sprite.Sprite.__init__(self)
 	self.stand_image = map.load_image(weapon+"_right.png")
 	self.stand_image_left = map.load_image(weapon+"_left.png")
 
@@ -16,10 +17,11 @@ class Weapon:
 	att_image = map.load_image(weapon+"_att_left.png")
 	self.left_att = hero.get_frame(hero.get_image_list(att_image, 50))
  
-#	self.rect = self.attack_image.get_rect()
+	self.att_area_image = map.load_image(weapon+"_att_area.png", -1)
+	self.rect = self.att_area_image.get_rect()
 
 	self.speed = speed(weapon)
-	self.dameage = dameage(weapon)
+	self.damage = damage(weapon)
 	self.pos_x, self.pos_y = (0, 0)
 
 	self.image_view = self.stand_image
@@ -49,13 +51,20 @@ class Weapon:
 		print "공격끝!"
 		self.attack = False
 		self.f_attack = 0
-		
+        if player.course.startswith("right"):
+            s_x = player.s_x+player.s_image.get_width()/2
+        elif player.course.startswith("left"):
+    	    s_x = player.s_x-player.s_image.get_width()/2
+	x, y = (self.att_area_image.get_width(),
+                self.att_area_image.get_height())
+	self.rect = Rect((s_x, player.s_y, x, y)) 
+	screen.blit(self.att_area_image, (s_x, player.s_y))	
 	screen.blit(self.image_view, (player.pos_x , player.pos_y))
 
 def speed(name):
     if name.startswith("hand"):
 	return 2
 
-def dameage(name):
+def damage(name):
     if name.startswith("hand"):
 	return 10
