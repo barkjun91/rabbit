@@ -33,7 +33,7 @@ class People(pygame.sprite.Sprite):
 	if self.hp > 0:
 	    print "아야"
             self.hp -= hitpoint
-	elif self.hp <= 0:
+	if self.hp <= 0:
 	    print "으아아아아"
 	    self.status = "die"
 	    print "die"
