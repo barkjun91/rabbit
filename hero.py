@@ -100,16 +100,16 @@ class Player(pygame.sprite.Sprite):
 	
 
     def cmd(self):
-	if self.command.startswith("rr"):
+	if self.command.endswith("rr"): #and not self.command.endswith("rrr"):
 	    self.speed = 3
 	    self.running = True
-	elif self.command.startswith("ll"):
+	elif self.command.endswith("ll"): #and not self.command.endswith("lll"):
 	    self.speed = 3
 	    self.running = True
-	elif self.command.startswith("dd"):
+	elif self.command.endswith("dd"): #and not self.command.endswith("ddd"):
 	    self.speed = 2.5
 	    self.running = True
-	elif self.command.startswith("uu"):
+	elif self.command.endswith("uu"): #and not self.command.endswith("uuu"):
 	    self.speed = 2.5
 	    self.running = True
 	else:
