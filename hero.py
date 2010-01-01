@@ -119,7 +119,7 @@ class Player(pygame.sprite.Sprite):
 
     def hit(self, wea, peo):
         who = pygame.sprite.spritecollideany(wea, peo)
-	if who:
+	if who and who.status.startswith("live"):
 	    print "얍얍!"
 	    who.attacked(wea.damage)
 	else:
