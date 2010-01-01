@@ -18,8 +18,13 @@ class Player(pygame.sprite.Sprite):
 
 	player_run = map.load_image("player_run_right.png")
 	self.right_run = get_frame(get_image_list(player_run, 50))
-	player_left_run = map.load_image("player_run_left.png")
-	self.left_run = get_frame(get_image_list(player_left_run, 50))	
+	player_run = map.load_image("player_run_left.png")
+	self.left_run = get_frame(get_image_list(player_run, 50))	
+
+	player_att = map.load_image("player_att_right.png")
+	self.right_att = get_frame(get_image_list(player_att, 50))
+	player_att = map.load_image("player_att_left.png")
+	self.left_att = get_frame(get_image_list(player_att, 50))
 
 	self.image_view = self.image
 
@@ -35,6 +40,7 @@ class Player(pygame.sprite.Sprite):
 
 	self.running = False
 	self.attack = False	
+	self.f_attack = 0
 
 	self.s_x = 0
 	self.s_y = 0
@@ -45,17 +51,32 @@ class Player(pygame.sprite.Sprite):
 	self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
 	self.pos_y += (keys[K_DOWN] - keys[K_UP]) * self.speed * 0.7
 	    
-    def draw(self, screen, clash):
+    def draw(self, screen, clash, weapon):
 	rect = Rect((self.pos_x, self.pos_y, 75, 50))
 	self.s_x=self.pos_x+self.s_image.get_width()/4
 	self.s_y=self.pos_y+self.image.get_height()-self.s_image.get_height()/2
 	self.rect.x = self.s_x
 	self.rect.y = self.s_y
-	if not clash and not self.running:
+	if not clash and not self.running and not self.attack:
 	    if self.course.startswith("right"):
 	        self.image_view = self.image
 	    elif self.course.startswith("left"):
 		self.image_view = self.image_left
+	elif self.attack:
+	    if self.course.startswith("right"):
+	        if self.f_delay > weapon.speed:
+		    self.f_attack += 1 
+	            self.image_view = self.right_att.next()
+		    self.f_delay = 0
+	    elif self.course.startswith("left"):
+	        if self.f_delay > weapon.speed:
+		    self.f_attack += 1 
+	            self.image_view = self.left_att.next()
+		    self.f_delay = 0
+	    if self.f_attack == 6:
+		print "공격끝!"
+		self.attack = False
+		self.f_attack = 0
 	elif clash:
 	    if self.course.startswith("right"):
 	        self.image_view = self.c_image 
@@ -94,7 +115,6 @@ class Player(pygame.sprite.Sprite):
 
     def hit(self, people, clash):
 	print "attack"
-	self.attack = False
 
     def clash(self, sprite, group):
 	if pygame.sprite.spritecollideany(sprite, group):

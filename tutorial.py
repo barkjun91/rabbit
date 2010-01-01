@@ -48,6 +48,7 @@ def tutorial_main(screen):
 	clock.tick(60)
         player.cmddelay += 1
 	player.f_delay += 1
+	weapon.f_delay += 1
 	for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -56,6 +57,7 @@ def tutorial_main(screen):
 		hero.press_cmd(event.key, player)
 		if event.key == pygame.K_x:
 		    player.attack = True
+		    weapon.attack = True
 		    player.hit(PEOPLE_LIST, clash)
 
 	keys = pygame.key.get_pressed()
@@ -74,7 +76,7 @@ def tutorial_main(screen):
 
 	clash = player.clash(player, person_sprite)
 
-	player.draw(screen, clash)
+	player.draw(screen, clash, weapon)
 	weapon.draw(screen, player, clash)
         pygame.display.update()
 	pygame.display.flip()
