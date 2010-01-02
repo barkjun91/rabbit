@@ -74,7 +74,7 @@ def tutorial_main(screen):
 	maps.move(player, camera, keys)
 
 	# -- 일정 시간 키 입력이 없으면 초기화 / 기준 15프레임 
-        if player.cmddelay >= 15:
+        if player.cmddelay >= 15 or len(player.command) > 10:
 	    player.command = ""
 	    player.cmddelay = 0
 
