@@ -87,8 +87,6 @@ class Map:
 	    player.pos_x = 480-(player.pos_y+player.image.get_height())
 	if player.pos_x > 640-player.image.get_width()+480-TILE_SIZE*3-(player.pos_y+player.image.get_height()):
             player.pos_x = 640-player.image.get_width()+480-TILE_SIZE*3-(player.pos_y+player.image.get_height())
-        # 타일 사이즈로 3개 빼서 할 수 밖에 없었어요 맨 위 기준을 잡기 힘들어서요
-        # 소스가 더러워보여도 player.pos_x의 기준으로 썼기 때문에 맞습니다
 	if player.pos_y > 480-player.image.get_height():
 	    player.pos_y = 480-player.image.get_height()
 	if player.pos_y < 480-self.height-player.image.get_height()+player.s_image.get_height():

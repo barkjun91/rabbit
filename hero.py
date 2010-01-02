@@ -76,7 +76,7 @@ class Player(pygame.sprite.Sprite):
 	            self.image_view = self.left_att.next()
 		    self.f_delay = 0
 	    if self.f_attack == 6:
-		print "공격끝!"
+		print "finish attack of rabbit!"
 		self.attack = False
 		self.f_attack = 0
 
@@ -120,10 +120,10 @@ class Player(pygame.sprite.Sprite):
     def hit(self, wea, peo):
         who = pygame.sprite.spritecollideany(wea, peo)
 	if who and who.status.startswith("live"):
-	    print "얍얍!"
+	    print "yap yap!"
 	    who.attacked(wea.damage)
 	else:
-	    print "허공!"
+	    print "vain effort!"
 
     def clash(self, pla, peo):
         who = pygame.sprite.spritecollideany(pla, peo)
@@ -150,7 +150,6 @@ def press_cmd(keys, player):
     print player.command
     print player.pos_x
     print player.pos_y
-    print player.image.get_width()
 
 def get_image_list(image, frame_width):
     image_list = []
