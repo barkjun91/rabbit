@@ -57,7 +57,6 @@ def tutorial_main(screen):
 	player.f_delay += 1
 	weapon.f_delay += 1
 
-	print player.running
 
 	for event in pygame.event.get():
             if event.type == QUIT:
