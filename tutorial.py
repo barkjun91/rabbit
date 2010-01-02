@@ -18,7 +18,7 @@ def load_person(data):
 	    if name.startswith("m_farmer"):
 	        (x, y) = ( int(people.readline()), int(people.readline()) )
 	        PEOPLE_LIST.insert(i, person.People("m_farmer.png", "m_f_shadow.png", 1, (x,y)))
-		PEOPLE_LIST[i].hp = 100
+		PEOPLE_LIST[i].hp = 20
     except pygame.error, message:
 	print 'Cannot load Person Data'
 	raise SystemExit, message
@@ -56,6 +56,8 @@ def tutorial_main(screen):
         player.cmddelay += 1
 	player.f_delay += 1
 	weapon.f_delay += 1
+
+	print player.running
 
 	for event in pygame.event.get():
             if event.type == QUIT:

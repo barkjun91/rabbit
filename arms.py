@@ -48,7 +48,6 @@ class Weapon(pygame.sprite.Sprite):
 	            self.image_view = self.left_att.next()
 		    self.f_delay = 0
             if self.f_attack == 6:
-		print "finish the rabbit's arms attack!"
 		self.attack = False
 		self.f_attack = 0
         if player.course.startswith("right"):

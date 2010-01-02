@@ -73,6 +73,8 @@ class Map:
     def move(self, player, camera, keys):
 	if keys[K_RIGHT] + keys[K_LEFT] + keys[K_DOWN] + keys[K_UP] == 0:
 	    player.running = False
+	    player.speed = 2
+
 	if player.pos_x < camera.view_posx or camera.px <0:
 	    player.input(keys)
 	    if camera.px < 0:
