@@ -5,7 +5,7 @@ import pygame, sys, os, random
 from pygame.locals import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, image1, image2,speed, (x, y), clothes, rabbits):
+    def __init__(self, image1, image2,speed, (x, y), clothes, rabbits, spirit):
 	pygame.sprite.Sprite.__init__(self)
 	self.type = "player"
 
@@ -35,7 +35,8 @@ class Player(pygame.sprite.Sprite):
 
 	self.clothes = clothes
 	self.rabbits = rabbits
-	self.spirit = 0
+	self.spirit = spirit
+	self.sp = 0
         self.command = ""
         self.cmddelay = 0
 
@@ -125,6 +126,8 @@ class Player(pygame.sprite.Sprite):
         who = pygame.sprite.spritecollideany(wea, peo)
 	if who and who.status.startswith("live"):
 	    who.attacked(wea.damage)
+	    if self.sp < 100:
+		self.sp += 5
 	else:
 	    print "vain effort!"
 

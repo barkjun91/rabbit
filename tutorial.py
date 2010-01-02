@@ -29,7 +29,7 @@ def tutorial_main(screen):
     pygame.init()
     viewpos = (0,0)
 
-    player = hero.Player("player", "p_shadow.png",2, (220,320), "test", 5)
+    player = hero.Player("player", "p_shadow.png",2, (220,320), "test", 5, 0)
     weapon = arms.Weapon("hand")
     maps = map.Map("map.txt", "tiles.png")
     camera = map.Camera(screen)

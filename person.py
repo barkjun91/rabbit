@@ -31,9 +31,7 @@ class People(pygame.sprite.Sprite):
 
     def attacked(self, hitpoint):
 	if self.hp > 0:
-	    print "ouch!"
             self.hp -= hitpoint
 	if self.hp <= 0:
-	    print "(scream)"
 	    self.status = "die"
 	    print "die"
