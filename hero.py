@@ -100,21 +100,26 @@ class Player(pygame.sprite.Sprite):
 	
 
     def cmd(self):
-	if self.command.endswith("rr"): #and not self.command.endswith("rrr"):
-	    self.speed = 3
-	    self.running = True
-	elif self.command.endswith("ll"): #and not self.command.endswith("lll"):
-	    self.speed = 3
-	    self.running = True
-	elif self.command.endswith("dd"): #and not self.command.endswith("ddd"):
-	    self.speed = 2.5
-	    self.running = True
-	elif self.command.endswith("uu"): #and not self.command.endswith("uuu"):
-	    self.speed = 2.5
-	    self.running = True
-	else:
-	    self.speed = 2
-	    self.running = False
+        if self.running == False: 
+            if self.command.endswith("rr"): #and not self.command.endswith("rrr"):
+                self.speed = 3
+                self.running = True
+            elif self.command.endswith("ll"): #and not self.command.endswith("lll"):
+                self.speed = 3
+                self.running = True
+            elif self.command.endswith("dd"): #and not self.command.endswith("ddd"):
+                self.speed = 2.5
+                self.running = True
+            elif self.command.endswith("uu"): #and not self.command.endswith("uuu"):
+                self.speed = 2.5
+                self.running = True
+        else:
+            if self.command.endswith("l") and not self.course == "right" :
+                self.speed = 2
+                self.running = False
+            elif self.command.endswith("r") and not self.course == "left":
+                self.speed = 2
+                self.running = False
 
 
     def hit(self, wea, peo):
