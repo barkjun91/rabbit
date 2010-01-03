@@ -58,9 +58,12 @@ def tutorial_main(screen):
     clock = pygame.time.Clock()
 
     person_sprite = pygame.sprite.Group(PEOPLE_LIST[0])
-
+    mapob_sprite = pygame.sprite.Group(OBJECT_LIST[0])
     for i in range(1, p_count, 1):
         person_sprite.add(PEOPLE_LIST[i])
+    for i in range(1, o_count, 1):
+	mapob_sprite.add(OBJECT_LIST[i])
+
     draw_list.append(player)
     for i in range(0, p_count, 1):
         if PEOPLE_LIST[i].status.startswith("live"):
@@ -97,6 +100,7 @@ def tutorial_main(screen):
 	    player.cmddelay = 0
 
 	clash = player.clash(player, person_sprite)
+	mapob.pla_clash(player, mapob_sprite, camera, keys)
 
 	maps.draw(screen, viewpos, camera)
 	draw_list.sort(key=lambda x: x.s_y)

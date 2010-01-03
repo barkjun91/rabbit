@@ -58,6 +58,7 @@ class Player(pygame.sprite.Sprite):
 	self.s_y = 0
 	self.f_delay = 0
 	self.course = "right"
+	self.pos = "right"
 
     def input(self, keys):
 	self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
@@ -149,17 +150,21 @@ def press_cmd(keys, player):
     if keys == pygame.K_RIGHT:
 	player.command = player.command + 'r'
 	player.cmddelay = 0
+	player.pos = "right"
 	player.course = "right"
     if keys == pygame.K_UP:
 	player.command = player.command + 'u'
 	player.cmddelay = 0
+	player.pos = "up"
     if keys == pygame.K_DOWN:
 	player.command = player.command + 'd'
 	player.cmddelay = 0
+	player.pos = "down"
     if keys == pygame.K_LEFT:
 	player.command = player.command + 'l'
 	player.cmddelay = 0
 	player.course = "left"
+	player.pos = "left"
     player.cmd()
 
 def get_image_list(image, frame_width):
