@@ -23,10 +23,6 @@ class Mapob(pygame.sprite.Sprite):
 	screen.blit(self.area, (self.s_x-camera.px, self.s_y))
 	x1 = self.pos_x+self.object.get_width()
 	y1 = self.pos_y+self.object.get_height()
-	print y1
-	print self.pos_y
-	print player.pos_y+player.image.get_height() 
-	print "----"
 	if self.pos_x <= player.pos_x+camera.px <= x1 and y1 >= player.pos_y+player.image.get_height() >= self.pos_y:	
 	    self.object.set_alpha(125)
 	else:
