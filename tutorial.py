@@ -88,6 +88,11 @@ def tutorial_main(screen):
 		    player.attack = True
 		    weapon.attack = True
 		    player.hit(weapon, person_sprite)
+		if event.key == pygame.K_a:
+		    print player.pos_x
+		    print player.pos_y
+		    print player.running
+		    print camera.px
 
 	keys = pygame.key.get_pressed()
 	

@@ -100,7 +100,9 @@ class Map:
 	    x1 = 640-player.image.get_width()+480-TILE_SIZE*3
             x1 = x1-(player.pos_y+player.image.get_height())
 	    if player.pos_x > x1:
-                player.pos_x = x1 
+                player.pos_x = x1
+	if camera.px == 2240:
+	    print "걸렸군" 
 
 	
 	#--------- Y축으로 도망 못가게 하는 부분 -------
