@@ -88,9 +88,9 @@ class Map:
 	    player.input(keys)
 	    if camera.px < 0:
 		camera.px = 0
-	elif camera.view_posx <= camera.px + player.pos_x <= self.width-camera.view_posx:
+	if camera.view_posx <= camera.px + player.pos_x <= self.width-camera.view_posx:
 	    camera.input(keys, player)
-	elif self.width - camera.view_posx < camera.view_posx + camera.px:
+	if self.width - camera.view_posx < camera.view_posx + camera.px:
 	    player.input(keys)
 	
 	#-------- 사선 처리 부분 -------------
