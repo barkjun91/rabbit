@@ -4,27 +4,37 @@ import main, map, arms
 import pygame, sys, os, random
 from pygame.locals import *
 
+def load_image(name, colorkey=None):
+    fullname = os.path.join('data/tutorial/image/hero/', name)
+    try:
+        image = pygame.image.load(fullname)
+    except pygame.error, message:
+        print 'Cannot load image:', name
+        raise SystemExit, message
+    image = image.convert_alpha()
+    return image
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, image1, image2,speed, (x, y), clothes, rabbits, spirit):
 	pygame.sprite.Sprite.__init__(self)
 	self.type = "player"
 
-	self.image = map.load_image(image1+"_right.png", -1)
-	self.image_left = map.load_image(image1+"_left.png",-1)
+	self.image = load_image(image1+"_right.png", -1)
+	self.image_left = load_image(image1+"_left.png",-1)
 
-	self.c_image = map.load_image(image1+"_clash_right.png", -1)
-	self.c_image_left = map.load_image(image1+"_clash_left.png", -1)
+	self.c_image = load_image(image1+"_clash_right.png", -1)
+	self.c_image_left = load_image(image1+"_clash_left.png", -1)
 
-	self.s_image = map.load_image(image2, -1)
+	self.s_image = load_image(image2, -1)
 
-	player_run = map.load_image("player_run_right.png")
+	player_run = load_image("player_run_right.png")
 	self.right_run = get_frame(get_image_list(player_run, 50))
-	player_run = map.load_image("player_run_left.png")
+	player_run = load_image("player_run_left.png")
 	self.left_run = get_frame(get_image_list(player_run, 50))	
 
-	player_att = map.load_image("player_att_right.png")
+	player_att = load_image("player_att_right.png")
 	self.right_att = get_frame(get_image_list(player_att, 50))
-	player_att = map.load_image("player_att_left.png")
+	player_att = load_image("player_att_left.png")
 	self.left_att = get_frame(get_image_list(player_att, 50))
 
 	self.image_view = self.image

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 import main, map, hero, person, arms
 import pygame, sys, os, random
@@ -10,7 +10,7 @@ PEOPLE_LIST = []
 
 
 def load_person(data):
-    people = open('data/tutorial/'+data)
+    people = open('data/tutorial/data/'+data)
     p_count = int(people.readline())
     try:
 	for i in range(0, p_count, 1): #c -> for(i = 0; i<1; i ++)

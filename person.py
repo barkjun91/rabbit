@@ -4,14 +4,23 @@ import main, map
 import pygame, sys, os, random
 from pygame.locals import *
 
+def load_image(name, colorkey=None):
+    fullname = os.path.join('data/tutorial/image/person/', name)
+    try:
+        image = pygame.image.load(fullname)
+    except pygame.error, message:
+        print 'Cannot load image:', name
+        raise SystemExit, message
+    image = image.convert_alpha()
+    return image
 
 
 class People(pygame.sprite.Sprite):
     def __init__(self, image1, image2, speed, (x,y)):
 	pygame.sprite.Sprite.__init__(self)
 	self.type = "person"
-	self.image = map.load_image(image1, -1)
-	self.s_image = map.load_image(image2)
+	self.image = load_image(image1, -1)
+	self.s_image = load_image(image2)
 	self.rect = self.s_image.get_rect()
 	self.speed = speed
 	self.pos_x, self.pos_y = (x, y)

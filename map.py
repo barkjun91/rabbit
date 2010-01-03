@@ -15,7 +15,7 @@ tile_coords = {
 TILE_SIZE = 64
 
 def load_image(name, colorkey=None):
-    fullname = os.path.join('data/tutorial', name)
+    fullname = os.path.join('data/tutorial/image/map', name)
     try:
         image = pygame.image.load(fullname)
     except pygame.error, message:
@@ -38,7 +38,7 @@ class Map:
     def __init__(self, map, tiles):
 	self.tiles = load_image(tiles)
 	self.width, self.height = (0, TILE_SIZE*3)
-	l = [line.strip() for line in open('data/tutorial/'+map).readlines()]
+	l = [line.strip() for line in open('data/tutorial/data/'+map).readlines()]
 	self.map = [[None]*len(l[0]) for j in range(len(l))]
 	
 	for i in range(len(l[0])):
