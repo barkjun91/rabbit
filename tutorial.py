@@ -1,12 +1,13 @@
 ﻿# -*- coding: utf-8 -*-
 
-import main, map, hero, person, arms
+import main, map, hero, person, arms, mapob
 import pygame, sys, os, random
 from pygame.locals import *
 
 SCREEN_SIZE = (640, 480) # screen size set
 
 PEOPLE_LIST = []
+OBJECT_LIST = []
 
 
 def load_person(data):
@@ -25,6 +26,21 @@ def load_person(data):
 
     return p_count
 
+def load_bgobject(data):
+    map_ob = open('data/tutorial/data/'+data)
+    o_count = int(map_ob.readline())
+    try:
+	for i in range(0, o_count, 1): #c -> for(i = 0; i<1; i ++)
+	    name = str(map_ob.readline())
+	    if name.startswith("tree"):
+		x, y =  (int(map_ob.readline()),  int(map_ob.readline()))
+	        OBJECT_LIST.insert(i, mapob.Mapob("tree",x,y))
+    except pygame.error, message:
+	print 'Cannot load bgObject Data'
+	raise SystemExit, message
+
+    return o_count
+
 def tutorial_main(screen):
     pygame.init()
     viewpos = (0,0)
@@ -34,7 +50,7 @@ def tutorial_main(screen):
     maps = map.Map("map.txt", "tiles.png")
     camera = map.Camera(screen)
     p_count = load_person("person.txt")
-
+    o_count = load_bgobject("bgobject.txt")
     draw_list = []
 
     clash = False
@@ -49,6 +65,8 @@ def tutorial_main(screen):
     for i in range(0, p_count, 1):
         if PEOPLE_LIST[i].status.startswith("live"):
             draw_list.append(PEOPLE_LIST[i])
+    for i in range(0, o_count, 1):
+        draw_list.append(OBJECT_LIST[i])
 
     while 1:
 	screen.fill((255,255,255))
@@ -82,14 +100,15 @@ def tutorial_main(screen):
 
 	maps.draw(screen, viewpos, camera)
 	draw_list.sort(key=lambda x: x.s_y)
-	for i in range(0, p_count+1, 1):
+	for i in range(0, p_count+o_count+1, 1):
 	    if draw_list[i].type.startswith("person"):
 		if draw_list[i].status.startswith("live"):
 		    draw_list[i].draw(screen, camera)
-	    if draw_list[i].type.startswith("player"):
+	    elif draw_list[i].type.startswith("player"):
 		player.draw(screen, clash, weapon)
 		weapon.draw(screen, player, clash)
-
+	    else:
+		draw_list[i].draw(screen,camera)
 
         pygame.display.update()
 	pygame.display.flip()
