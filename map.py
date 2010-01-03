@@ -88,25 +88,23 @@ class Map:
 	    player.input(keys)
 	    if camera.px < 0:
 		camera.px = 0
+ 	    if player.pos_x < 480-(player.pos_y+player.image.get_height()):
+	        player.pos_x = 480-(player.pos_y+player.image.get_height())
+
 	if camera.view_posx <= camera.px + player.pos_x <= self.width-camera.view_posx:
 	    camera.input(keys, player)
+	    if player.pos_x < 320:
+		player.pos_x = 320
 	if self.width - camera.view_posx < camera.view_posx + camera.px:
 	    player.input(keys)
+	    x1 = 640-player.image.get_width()+480-TILE_SIZE*3
+            x1 = x1-(player.pos_y+player.image.get_height())
+	    if player.pos_x > x1:
+                player.pos_x = x1 
+
 	
-	#-------- 사선 처리 부분 -------------
-	if player.pos_x < 480-(player.pos_y+player.image.get_height()):
-	    player.pos_x = 480-(player.pos_y+player.image.get_height())
-	elif player.pos_x > 640-player.image.get_width()+480-TILE_SIZE*3-(player.pos_y+player.image.get_height()):
-            player.pos_x = 640-player.image.get_width()+480-TILE_SIZE*3-(player.pos_y+player.image.get_height())
 	#--------- Y축으로 도망 못가게 하는 부분 -------
 	if player.pos_y > 480-player.image.get_height():
 	    player.pos_y = 480-player.image.get_height()
 	elif player.pos_y < 480-self.height-player.image.get_height()+player.s_image.get_height():
 	    player.pos_y = 480-self.height-player.image.get_height()+player.s_image.get_height()
-
-    def draw_append(self, player, PEOPLE_LIST, p_count):
-	count = 0
-
-
-        return (draw_list, count)
-
