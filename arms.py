@@ -77,4 +77,4 @@ def speed(name):
 
 def damage(name):
     if name.startswith("hand"):
-	return 10
+	return 5
