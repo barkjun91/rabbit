@@ -126,8 +126,6 @@ class Player(pygame.sprite.Sprite):
         who = pygame.sprite.spritecollideany(wea, peo)
 	if who and who.status.startswith("live"):
 	    who.attacked(wea.damage)
-	    if self.sp < 100:
-		self.sp += 5
 	else:
 	    print "vain effort!"
 
