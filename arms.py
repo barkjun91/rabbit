@@ -4,20 +4,30 @@ import main, map, hero, person
 import pygame, sys, os, random
 from pygame.locals import *
 
+def load_image(name, colorkey=None):
+    fullname = os.path.join('data/tutorial/image/arms/', name)
+    try:
+        image = pygame.image.load(fullname)
+    except pygame.error, message:
+        print 'Cannot load image:', name
+        raise SystemExit, message
+    image = image.convert_alpha()
+    return image
+
 
 class Weapon(pygame.sprite.Sprite):
     def __init__(self, weapon):
 	pygame.sprite.Sprite.__init__(self)
-	self.stand_image = map.load_image(weapon+"_right.png")
-	self.stand_image_left = map.load_image(weapon+"_left.png")
+	self.stand_image = load_image(weapon+"_right.png")
+	self.stand_image_left = load_image(weapon+"_left.png")
 
 	self.weapon = weapon
-	att_image = map.load_image(weapon+"_att_right.png")
+	att_image = load_image(weapon+"_att_right.png")
 	self.right_att = hero.get_frame(hero.get_image_list(att_image, 50))
-	att_image = map.load_image(weapon+"_att_left.png")
+	att_image = load_image(weapon+"_att_left.png")
 	self.left_att = hero.get_frame(hero.get_image_list(att_image, 50))
  
-	self.att_area_image = map.load_image(weapon+"_att_area.png", -1)
+	self.att_area_image = load_image(weapon+"_att_area.png", -1)
 	self.rect = self.att_area_image.get_rect()
 
 	self.speed = speed(weapon)
