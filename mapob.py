@@ -31,7 +31,7 @@ def shadow(n, x, y):
 	return (x+49, y+274)
     return (0,0)
 
-def pla_clash(sprite, group, camera, keys):
+def pla_clash(sprite, group, camera):
     who = pygame.sprite.spritecollideany(sprite, group)
     if who:
 	if camera.px <= 0:

@@ -100,7 +100,7 @@ def tutorial_main(screen):
 	    player.cmddelay = 0
 
 	clash = player.clash(player, person_sprite)
-	mapob.pla_clash(player, mapob_sprite, camera, keys)
+	mapob.pla_clash(player, mapob_sprite, camera)
 
 	maps.draw(screen, viewpos, camera)
 	draw_list.sort(key=lambda x: x.s_y)
