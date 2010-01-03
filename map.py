@@ -21,7 +21,11 @@ def load_image(name, colorkey=None):
     except pygame.error, message:
         print 'Cannot load image:', name
         raise SystemExit, message
-    image = image.convert_alpha()
+    image = image.convert()
+    if colorkey is not None:
+        if colorkey is -1:
+            colorkey = image.get_at((0,0))
+        image.set_colorkey(colorkey, RLEACCEL)
     return image
 
 class Camera:
@@ -36,9 +40,9 @@ class Camera:
 
 class Map:
     def __init__(self, map, tiles):
-	self.tiles = load_image(tiles)
+	self.tiles = load_image(tiles, -1)
 	self.bg = load_image('bg_1.png')
-
+	self.tiles = self.tiles.convert_alpha()
 	self.width, self.height = (0, TILE_SIZE*3)
 	l = [line.strip() for line in open('data/tutorial/data/'+map).readlines()]
 	self.map = [[None]*len(l[0]) for j in range(len(l))]

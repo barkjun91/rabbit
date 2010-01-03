@@ -111,7 +111,7 @@ def tutorial_main(screen):
 		player.draw(screen, clash, weapon)
 		weapon.draw(screen, player, clash)
 	    else:
-		draw_list[i].draw(screen,camera)
+		draw_list[i].draw(screen,camera,player)
 
         pygame.display.update()
 	pygame.display.flip()
