@@ -37,6 +37,8 @@ class Camera:
 class Map:
     def __init__(self, map, tiles):
 	self.tiles = load_image(tiles)
+	self.bg = load_image('bg_1.png')
+
 	self.width, self.height = (0, TILE_SIZE*3)
 	l = [line.strip() for line in open('data/tutorial/data/'+map).readlines()]
 	self.map = [[None]*len(l[0]) for j in range(len(l))]
@@ -57,6 +59,9 @@ class Map:
 	sx, sy = (self.width, 480)
 	bx = viewpos[0]/TILE_SIZE
 	by = viewpos[1]/TILE_SIZE
+
+	view.blit(self.bg, (0, 0))
+
 	for x in range(0, sx+TILE_SIZE , TILE_SIZE):
 	    i = x/TILE_SIZE  + bx
 	    for y in range(32, sy+TILE_SIZE , TILE_SIZE):
