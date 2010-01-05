@@ -65,7 +65,6 @@ class Player(pygame.sprite.Sprite):
 	self.pos_y += (keys[K_DOWN] - keys[K_UP]) * self.speed * 0.7
 	    
     def draw(self, screen, clash, weapon):
-	rect = Rect((self.pos_x, self.pos_y, 75, 50))
 	self.s_x=self.pos_x+self.s_image.get_width()/4
 	self.s_y=self.pos_y+self.image.get_height()-self.s_image.get_height()/2
 	self.rect.x = self.s_x
@@ -107,7 +106,7 @@ class Player(pygame.sprite.Sprite):
 	            self.image_view = self.left_run.next()
 		    self.f_delay = 0
 	screen.blit(self.s_image, (self.s_x, self.s_y))  
-	screen.blit(self.image_view, rect)
+	screen.blit(self.image_view, (self.pos_x, self.pos_y))
 	
 
     def cmd(self):

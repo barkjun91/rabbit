@@ -64,10 +64,8 @@ class Weapon(pygame.sprite.Sprite):
             s_x = player.s_x+player.s_image.get_width()/2
         elif player.course.startswith("left"):
     	    s_x = player.s_x-player.s_image.get_width()/2
-	x, y = (self.att_area_image.get_width(),
-                self.att_area_image.get_height())
-
-	self.rect = Rect((s_x, player.s_y, x, y)) 
+	self.rect.x = s_x
+	self.rect.y = player.s_y
 	screen.blit(self.att_area_image, (s_x, player.s_y))	
 	screen.blit(self.image_view, (player.pos_x , player.pos_y))
 
