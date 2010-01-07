@@ -56,6 +56,7 @@ def tutorial_main(screen):
     clash = False
     delay = 1
     clock = pygame.time.Clock()
+    paurse = False
 
     person_sprite = pygame.sprite.Group(PEOPLE_LIST[0])
     mapob_sprite = pygame.sprite.Group(OBJECT_LIST[0])

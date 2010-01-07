@@ -8,7 +8,6 @@ import tutorial
 #stage = ["title", "main", "tutorial","stage1"]
 stage = 3
 
-
 def main():
     SCREEN_SIZE = (640, 480) # screen size set
     # Start up pygame/make screen

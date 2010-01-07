@@ -17,6 +17,7 @@ class Mapob(pygame.sprite.Sprite):
 	self.rect = Rect((self.s_x, self.s_y, 
                           self.area.get_width(), self.area.get_height()))
 	self.type = "mapobject"
+	
     def draw(self, screen, camera, player):
 	self.rect = Rect((self.s_x-camera.px, self.s_y, 
                           self.area.get_width(), self.area.get_height()))
