@@ -89,7 +89,6 @@ class Player(pygame.sprite.Sprite):
 		    self.f_delay = 0
 	    if self.f_attack == 6:
 		self.attack = False
-		self.image_view = self.image
 		self.f_attack = 0
 
 	elif clash:
