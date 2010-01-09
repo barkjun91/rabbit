@@ -128,9 +128,11 @@ class Player(pygame.sprite.Sprite):
             if self.command.endswith("l") and not self.course == "right" :
                 self.speed = 2
                 self.running = False
+                self.course = "right"
             elif self.command.endswith("r") and not self.course == "left":
                 self.speed = 2
                 self.running = False
+                self.course = "left"
 
 
     def hit(self, wea, peo):
