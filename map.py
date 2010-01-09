@@ -34,8 +34,9 @@ class Camera:
 	self.view_posx, self.view_posy = (x/2, y/2)
 	self.px = 0
     def input(self, keys, player):
-        self.px += (keys[K_RIGHT] - keys[K_LEFT]) * player.speed
-	player.pos_y += (keys[K_DOWN] - keys[K_UP]) * player.speed * 0.7
+        if player.attack == False:
+            self.px += (keys[K_RIGHT] - keys[K_LEFT]) * player.speed
+            player.pos_y += (keys[K_DOWN] - keys[K_UP]) * player.speed * 0.7
 
 
 class Map:

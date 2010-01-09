@@ -61,8 +61,9 @@ class Player(pygame.sprite.Sprite):
 	self.pos = "right"
 
     def input(self, keys):
-	self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
-	self.pos_y += (keys[K_DOWN] - keys[K_UP]) * self.speed * 0.7
+        if self.attack == False:
+            self.pos_x += (keys[K_RIGHT] - keys[K_LEFT]) * self.speed
+            self.pos_y += (keys[K_DOWN] - keys[K_UP]) * self.speed * 0.7
 	    
     def draw(self, screen, clash, weapon):
 	self.s_x=self.pos_x+self.s_image.get_width()/4
