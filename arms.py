@@ -60,6 +60,10 @@ class Weapon(pygame.sprite.Sprite):
             if self.f_attack == 6:
 		self.attack = False
 		self.f_attack = 0
+		if player.course.startswith("right"):
+                    self.image_view = self.stand_image
+                elif player.course.startswith("left"):
+                    self.image_view = self.stand_image_left
         if player.course.startswith("right"):
             s_x = player.s_x+player.s_image.get_width()/2
         elif player.course.startswith("left"):
